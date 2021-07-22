@@ -1,8 +1,0 @@
-tweet id - id_str
-tweet text - text
-user name - user.name
-user screen name - user.screen_name
-user image - user.profile_image_url
-tweet date - created_at
-likes - favorite_count
-retweet count - retweet_count
