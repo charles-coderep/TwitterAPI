@@ -82,7 +82,7 @@ const getRequest = async (req, res, next) => {
                                 break;
                         }
                     }
-                    newTwArray.push({ newTwObj });
+                    newTwArray.push(newTwObj);
                 }
                 clientCache.setex('tweets', 100, JSON.stringify(newTwArray));
                 res.json(newTwArray);
