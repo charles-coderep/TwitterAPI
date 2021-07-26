@@ -76,7 +76,7 @@ const getRequest = async (req, res, next) => {
                             case 'data.' + i + 'public_metrics.like_count':
                                 newTwObj['likes_' + i] = twArray[j][1];
                                 break;
-                            case 'data.' + i + '.text':
+                            case 'data.' + i + '.public_metrics.retweet_count':
                                 newTwObj['retweet_count_' + i] = twArray[j][1];
                                 break;
                         }
