@@ -17,6 +17,6 @@ An endpoint was created at http://localhost:3000/twitter/hashtag/:hashtag. When 
 - Create new array of objects with required fields and set it to Redis cache with 100 second time expiry
 - Any subsequent requests before 100s will retrieve cached data
 
-## To implement
+## Still to implement
 Do a recent tweet count search every 3 sec (within rate limit) untill it shows a count of 100 tweets for particular hashtag. If found, flush the redis key, then get 100 newest tweets and save to cache while taking other constraints in consideration.
 
