@@ -1,11 +1,15 @@
-// Search for Tweets within the past seven days
-// https://developer.twitter.com/en/docs/twitter-api/tweets/search/quick-start/recent-search
+/**
+ * Retrieve 100 new searches for any given Twitter hastag while respecting the rate limits.
+ * Rate limits for app context:
+ * GET /2/tweets/counts/recent - 300req / 15min
+ * GET /2/tweets/search/recent - 450req / 15min / 100 tweets per request
+ */
+
 require('dotenv').config();
 const needle = require('needle');
 const express = require('express');
 const Redis = require('redis');
 const flatten = require('flat')
-const { promisify } = require('util');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -13,7 +17,6 @@ const REDIS_PORT = process.env.PORT || 6379;
 const token = process.env.TWITTER_BEARER_TOKEN;
 const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
 
-// Convert function to return promises
 const clientCache = Redis.createClient(REDIS_PORT);
 
 const getRequest = async (req, res, next) => {
@@ -25,7 +28,7 @@ const getRequest = async (req, res, next) => {
         'expansions': 'author_id',
         'user.fields': 'name,username,profile_image_url',
         'tweet.fields': 'public_metrics,text,created_at',
-        'max_results': '10'
+        'max_results': '10' // change to 100 later
     }
 
     try {
@@ -45,7 +48,6 @@ const getRequest = async (req, res, next) => {
 
                 const twData = await twitterRes.body;
                 const twArray = (Object.entries(flatten(twData)));
-                //console.log(twArray);
                 let newTwArray = [];
                 let newTwObj = {};
 
@@ -84,19 +86,8 @@ const getRequest = async (req, res, next) => {
                 clientCache.setex('tweets', 100, JSON.stringify(newTwObj));
                 res.json(newTwObj);
 
-
             }
         });
-
-
-
-
-
-        /*
-        for (let i = 0; i < twMergedArray.length; i++) {
-            const filteredResult = twMergedArray.filter()
-        }
-        console.log(merged);*/
 
     } catch (e) {
         console.log(e);
