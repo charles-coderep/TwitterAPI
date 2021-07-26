@@ -52,6 +52,7 @@ const getRequest = async (req, res, next) => {
                 let newTwObj = {};
 
                 for (let i = 0; i < 10; i++) {
+
                     for (let j = 0; j < twArray.length; j++) {
 
                         switch (twArray[j][0]) {
@@ -81,10 +82,10 @@ const getRequest = async (req, res, next) => {
                                 break;
                         }
                     }
-                    newTwArray.push(newTwObj);
+                    newTwArray.push({ newTwObj });
                 }
-                clientCache.setex('tweets', 100, JSON.stringify(newTwObj));
-                res.json(newTwObj);
+                clientCache.setex('tweets', 100, JSON.stringify(newTwArray));
+                res.json(newTwArray);
 
             }
         });
