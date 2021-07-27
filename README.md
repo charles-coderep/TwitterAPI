@@ -3,9 +3,8 @@
 ## Description
 
 Retrieve 100 newest tweets while respecting the rate limits of the Twitter API.
-Rate limits of Twitter API are:
+Rate limits of Twitter API in app context are:
 
-- Rate limits for app context:
 - GET /2/tweets/counts/recent - 300req / 15min
 - GET /2/tweets/search/recent - 450req / 15min / 100 tweets per request
 
